@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const TopStrip = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [time, setTime] = useState('');
+  const isHindi = (i18n.resolvedLanguage || i18n.language || 'en').startsWith('hi');
 
   useEffect(() => {
     const updateTime = () => {
@@ -20,14 +21,14 @@ const TopStrip = () => {
   }, []);
 
   const toggleLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'hi' : 'en';
+    const newLang = isHindi ? 'en' : 'hi';
     i18n.changeLanguage(newLang);
   };
 
   return (
     <div className="w-full flex items-center justify-between px-4 bg-[#1a2b5f] text-white h-[32px] text-xs font-sans">
       <div className="flex items-center gap-3">
-        <span className="font-semibold tracking-wide">Business Support Portal</span>
+        <span className="font-semibold tracking-wide">{t('topStrip.portalName')}</span>
       </div>
 
       <div className="flex items-center gap-5">
@@ -35,20 +36,21 @@ const TopStrip = () => {
           <span>{time}</span>
         </div>
 
-        <a href="#main-content" className="hover:underline opacity-90 hidden md:block">Skip to Main Content</a>
+        <a href="#main-content" className="hover:underline opacity-90 hidden md:block">{t('topStrip.skipToMain')}</a>
 
         <div className="flex items-center gap-2">
           <button className="bg-[#f5a623] hover:bg-[#e69b20] transition-colors text-[#1a2b5f] px-2 py-0.5 font-bold rounded-sm">
-            Sign In
+            {t('topStrip.signIn')}
           </button>
 
           <button
+            type="button"
             onClick={toggleLanguage}
-            title={i18n.language === 'hi' ? 'Switch to English' : 'Switch to Hindi'}
+            title={isHindi ? t('topStrip.switchToEnglish') : t('topStrip.switchToHindi')}
             className="relative group flex items-center gap-1 bg-white/10 hover:bg-white/20 border border-white/20 rounded-sm px-2 py-0.5 text-white transition-colors cursor-pointer"
           >
             <span className="font-bold text-[11px] tracking-wide">
-              {i18n.language === 'hi' ? 'EN' : 'HI'}
+              {isHindi ? 'EN' : 'HI'}
             </span>
           </button>
         </div>

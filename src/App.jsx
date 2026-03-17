@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './i18n';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -15,15 +16,17 @@ import MmuyLogin from './pages/MmuyLogin';
 import BluyLogin from './pages/BluyLogin';
 
 function App() {
+  const { t, i18n } = useTranslation();
+
   useEffect(() => {
-    document.title = 'Business Support Portal | Empowering Entrepreneurs';
-  }, []);
+    document.title = t('app.documentTitle');
+  }, [t, i18n.language]);
 
   return (
     <Router>
       <div className="app-container">
         <Header />
-        <main id="main">
+        <main id="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about-us" element={<AboutUs />} />

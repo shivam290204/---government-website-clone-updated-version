@@ -25,14 +25,14 @@ const Footer = () => {
                 </div>
               </div>
               <div className="footer-brand-text">
-                <h3>Empowering Entrepreneurs</h3>
-                <p>Business Support Portal</p>
+                <h3>{t('footer.udyogVibhag')}</h3>
+                <p>{t('footer.biharSarkar')}</p>
               </div>
             </div>
 
             <p className="mt-4 text-sm" style={{ opacity: 0.8, maxWidth: '300px' }}>
               <MapPin size={14} className="inline mr-1" />
-              2nd Floor, Growth Hub, Startup Lane, Patna, Bihar 800015
+              {t('footer.addressLine2')}
             </p>
 
             <div className="social-connect mt-4">
@@ -46,24 +46,24 @@ const Footer = () => {
           </div>
 
           <div className="footer-col">
-            <h4 className="footer-heading">Important Links</h4>
+            <h4 className="footer-heading">{t('footer.importantLinks')}</h4>
             <ul className="footer-links">
-              <li><a href="/">Home</a></li>
-              <li><a href="/about-us">About Us</a></li>
-              <li><a href="/success-stories">Success Stories</a></li>
-              <li><a href="/contact-us">Contact Us</a></li>
-              <li><a href="/pdf/FAQ.pdf" target="_blank" rel="noreferrer">FAQ</a></li>
+              <li><a href="/">{t('footer.home')}</a></li>
+              <li><a href="/about-us">{t('footer.aboutUs')}</a></li>
+              <li><a href="/success-stories">{t('footer.successStories')}</a></li>
+              <li><a href="/contact-us">{t('footer.contactUs')}</a></li>
+              <li><a href="/pdf/FAQ.pdf" target="_blank" rel="noreferrer">{t('footer.faq')}</a></li>
             </ul>
           </div>
 
           <div className="footer-col">
-            <h4 className="footer-heading">Platform Help</h4>
+            <h4 className="footer-heading">{t('footer.helpAndPolicies')}</h4>
             <ul className="footer-links">
-              <li><a href="/terms-and-conditions">Terms of Use</a></li>
-              <li><a href="/sitemap">Sitemap</a></li>
-              <li><a href="/accessibility">Accessibility</a></li>
-              <li><a href="/website-policies">Website Policies</a></li>
-              <li><a href="/contact-us">Support</a></li>
+              <li><a href="/terms-and-conditions">{t('footer.terms')}</a></li>
+              <li><a href="/sitemap">{t('footer.sitemap')}</a></li>
+              <li><a href="/accessibility">{t('footer.accessibility')}</a></li>
+              <li><a href="/website-policies">{t('footer.websitePolicies')}</a></li>
+              <li><a href="/contact-us">{t('footer.support')}</a></li>
             </ul>
           </div>
         </div>
@@ -74,26 +74,26 @@ const Footer = () => {
           <div className="compliance-logos">
             <div className="badge-item hover-glow">
               <ShieldCheck size={24} className="text-success" />
-              <span>Secure Platform</span>
+              <span>{t('footer.securePlatform')}</span>
             </div>
             <div className="badge-item hover-glow">
               <Activity size={24} className="text-secondary" />
-              <span>99.9% Uptime</span>
+              <span>{t('footer.uptime')}</span>
             </div>
           </div>
 
           <div className="compliance-text">
-            <p>Built for modern founders, creators, and growing businesses.</p>
-            <p className="font-bold text-secondary mt-1">Launch. Learn. Scale.</p>
+            <p>{t('footer.builtFor')}</p>
+            <p className="font-bold text-secondary mt-1">{t('footer.launchLearnScale')}</p>
           </div>
 
           <div className="visitor-stats">
             <div className="stat-card">
               <Eye size={16} />
-              <span>Visitor Count: <strong>{visitorCount.toLocaleString('en-IN')}</strong></span>
+              <span>{t('footer.visitorCount')} <strong>{visitorCount.toLocaleString('en-IN')}</strong></span>
             </div>
             <div className="stat-card">
-              <span>Last Updated: <strong>15 Mar 2026</strong></span>
+              <span>{t('footer.lastUpdated')} <strong>15 Mar 2026</strong></span>
             </div>
           </div>
         </div>
@@ -101,14 +101,14 @@ const Footer = () => {
         <div className="footer-bottom flex-between">
           <div className="dept-logins">
             <a href="/login/mmuy" className="dept-link">
-              <UserCheck size={16} /> Partner Login (MMUY)
+              <UserCheck size={16} /> {t('footer.partnerLogin')} (MMUY)
             </a>
             <span className="divider">|</span>
             <a href="/login/bluy" className="dept-link">
-              <UserCheck size={16} /> Partner Login (BLUY)
+              <UserCheck size={16} /> {t('footer.partnerLogin')} (BLUY)
             </a>
           </div>
-          <p className="copyright">{`© ${new Date().getFullYear()} Empowering Entrepreneurs, Business Support Portal. All rights reserved.`}</p>
+          <p className="copyright">{t('footer.copyright', { year: new Date().getFullYear() })}</p>
         </div>
       </div>
     </footer>

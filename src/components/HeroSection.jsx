@@ -4,13 +4,15 @@ import { useTranslation } from 'react-i18next';
 
 const HeroSection = () => {
   const { t, i18n } = useTranslation();
+  const isEnglish = (i18n.resolvedLanguage || i18n.language || 'en').startsWith('en');
+
   return (
     <section className="hero-section">
       <div className="hero-background"></div>
       <div className="container hero-content">
         <div className="hero-text-content animate-fade-in-up">
           <h1 className="hero-title">
-            {i18n.language === 'en' ? (
+            {isEnglish ? (
               <>{t('home.heroTitle1')}<span className="highlight-text">{t('home.heroTitle2')}</span></>
             ) : (
               <><span className="highlight-text">{t('home.heroTitle1')}</span>{t('home.heroTitle2')}</>
