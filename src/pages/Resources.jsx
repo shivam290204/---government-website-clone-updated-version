@@ -7,7 +7,7 @@ const Resources = () => {
     { title: 'महिला युवा संकल्प', link: '#' },
     { title: 'अल्पसंख्यक संकल्प', link: '#' },
     { title: 'बिहार लघु उद्यमी योजना संकल्प', link: '#' },
-    { title: 'मुख्यमंत्री उद्यमी योजना दिशा निर्देश', link: '#' },
+    { title: 'Startup Assistance Platform Guidelines', link: '#' },
     { title: 'बिहार लघु उद्यमी योजना दिशा निर्देश', link: '#' },
   ];
 

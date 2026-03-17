@@ -12,9 +12,9 @@ const SUGGESTIONS = [
     Icon: Lightbulb,
     color: '#f59e0b',
     bg: '#fef3c7',
-    question: 'मुख्यमंत्री उद्यमी योजना क्या है? (सामान्य जानकारी)',
+    question: 'Startup Assistance Platform kya hai? (Basic overview)',
     answer:
-      'मुख्यमंत्री उद्यमी योजना (MMUY) बिहार सरकार की एक प्रमुख योजना है जो राज्य के युवाओं को स्वरोजगार के लिए प्रोत्साहित करती है। इस योजना के अंतर्गत SC/ST/OBC/EWS श्रेणी के उद्यमियों को ₹10 लाख तक का ऋण 50% अनुदान और 50% ब्याज मुक्त ऋण के रूप में प्रदान किया जाता है। योजना का उद्देश्य राज्य में उद्यमिता को बढ़ावा देना और रोजगार सृजन करना है।',
+      'Startup Assistance Platform is a modern business support program designed to help early-stage founders launch and scale. It offers onboarding guidance, mentorship, funding assistance pathways, and expert support for building sustainable ventures.',
   },
   {
     id: 2,
@@ -93,9 +93,9 @@ const SUGGESTIONS = [
     Icon: HelpCircle,
     color: '#f97316',
     bg: '#ffedd5',
-    question: 'Report an issue / शिकायत दर्ज करें',
+    question: 'Report an issue / Contact support',
     answer:
-      'शिकायत/समस्या दर्ज करने के लिए:\n\n📧 ईमेल: dir-ind-bih@nic.in\n📞 टोल फ्री: 18003456214\n🌐 पोर्टल: udyami.bihar.gov.in/grievance\n\nकार्यालय का पता:\nतकनीकी विकास निदेशालय, उद्योग विभाग,\nविकास भवन, द्वितीय तल, नया सचिवालय,\nनेहरू पथ, पटना, बिहार – 800015\n\nकार्य दिवस: सोम–शुक्र | 10:00 AM – 5:00 PM',
+      'Need help? Reach our support team:\n\n📧 Email: support@businessportal.in\n📞 Helpline: 18003456214\n🌐 Support Portal: businessportal.in/support\n\nOffice: Growth Hub, 2nd Floor, Startup Lane, Patna\nWorking Hours: Mon-Fri | 10:00 AM - 5:00 PM',
   },
 ];
 
@@ -108,7 +108,7 @@ const Chat = () => {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    document.title = 'HelloUdyami';
+    document.title = 'Business Support Portal | AI Assistant';
   }, []);
 
   const scrollToBottom = () => {
@@ -139,7 +139,7 @@ const Chat = () => {
         role: 'bot',
         text: match
           ? match.answer
-          : 'इस प्रश्न के लिए कोई सीधा उत्तर उपलब्ध नहीं है। कृपया नीचे दिए गए सुझावों में से चुनें या उद्योग विभाग से संपर्क करें: 18003456214',
+          : 'I do not have a direct answer for this yet. Please choose a suggested question or contact support at 18003456214.',
       };
       setMessages((prev) => [...prev, botMsg]);
       setIsTyping(false);
@@ -185,11 +185,11 @@ const Chat = () => {
             <Bot size={24} color="#f5a623" />
           </div>
           <h1 style={{ color: '#fff', fontSize: '1.6rem', fontWeight: 700, margin: 0 }}>
-            उद्यमी AI सहायक
+            Startup AI Assistant
           </h1>
         </div>
         <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.9rem', margin: 0 }}>
-          मुख्यमंत्री उद्यमी योजना और बिहार लघु उद्यमी योजना के बारे में पूछें
+          Ask about funding, eligibility, onboarding, and business growth support.
         </p>
       </div>
 

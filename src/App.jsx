@@ -16,7 +16,7 @@ import BluyLogin from './pages/BluyLogin';
 
 function App() {
   useEffect(() => {
-    document.title = 'उद्योग विभाग बिहार | उद्यमी योजनाएं पोर्टल';
+    document.title = 'Business Support Portal | Empowering Entrepreneurs';
   }, []);
 
   return (
