@@ -17,7 +17,7 @@ const Footer = () => {
     <footer className="footer-wrapper">
       <div className="container">
         <div className="footer-grid">
-          <div className="footer-col brand-col" style={{ gridColumn: 'span 2' }}>
+          <div className="footer-col brand-col">
             <div className="footer-logo-row">
               <div className="footer-logo-box">
                 <div className="h-14 w-14 rounded-full bg-gradient-to-br from-[#1a2b5f] to-[#2f5ea8] text-white flex items-center justify-center font-extrabold">

@@ -37,9 +37,9 @@ const MmuyLogin = () => {
   ];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f0f2f5', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 16px' }}>
-      <div style={{ display: 'flex', width: '100%', maxWidth: 940, borderRadius: 16, overflow: 'hidden', boxShadow: '0 8px 40px rgba(0,0,0,0.15)' }}>
-        <div style={{ background: '#3600a0', color: '#fff', padding: '44px 36px', width: '40%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+    <div className="auth-shell" style={{ minHeight: '100vh', background: '#f0f2f5', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 16px' }}>
+      <div className="auth-card" style={{ display: 'flex', width: '100%', maxWidth: 940, borderRadius: 16, overflow: 'hidden', boxShadow: '0 8px 40px rgba(0,0,0,0.15)' }}>
+        <div className="auth-side" style={{ background: '#3600a0', color: '#fff', padding: '44px 36px', width: '40%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <a href={MMUY_PORTAL} target="_blank" rel="noopener noreferrer" style={{ color: '#fff', fontSize: '1rem', fontWeight: 700, lineHeight: 1.55, textDecoration: 'underline', display: 'block', marginBottom: 36 }}>
               {t('mmuyLogin.portalName')}
@@ -64,12 +64,12 @@ const MmuyLogin = () => {
           </div>
         </div>
 
-        <div style={{ background: '#fff', padding: '52px 56px', width: '60%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="auth-main" style={{ background: '#fff', padding: '52px 56px', width: '60%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           <h2 style={{ fontSize: '1.55rem', fontWeight: 700, color: '#3600a0', marginBottom: 36, textAlign: 'center' }}>{t('mmuyLogin.heading')}</h2>
 
           {error && <div style={{ width: '100%', maxWidth: 420, background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 8, padding: '10px 14px', fontSize: '0.83rem', color: '#dc2626', marginBottom: 18 }}>{error}</div>}
 
-          <form onSubmit={handleLogin} style={{ width: '100%', maxWidth: 420 }}>
+          <form className="auth-form" onSubmit={handleLogin} style={{ width: '100%', maxWidth: 420 }}>
             <div style={{ marginBottom: 22 }}>
               <label style={{ display: 'block', fontSize: '0.82rem', color: '#3600a0', fontWeight: 600, marginBottom: 6, lineHeight: 1.5 }}>
                 {t('mmuyLogin.mobileLabel')}
