@@ -14,6 +14,8 @@ import ContactUs from './pages/ContactUs';
 import Chat from './pages/Chat';
 import MmuyLogin from './pages/MmuyLogin';
 import BluyLogin from './pages/BluyLogin';
+import Login from './pages/Login';
+import SearchResults from './pages/SearchResults';
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -38,6 +40,8 @@ function App() {
             <Route path="/chat" element={<Chat />} />
             <Route path="/login/mmuy" element={<MmuyLogin />} />
             <Route path="/login/bluy" element={<BluyLogin />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/search" element={<SearchResults />} />
           </Routes>
         </main>
         <Footer />

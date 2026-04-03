@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const TopStrip = () => {
   const { t, i18n } = useTranslation();
@@ -39,9 +40,9 @@ const TopStrip = () => {
         <a href="#main-content" className="hover:underline opacity-90 hidden md:block">{t('topStrip.skipToMain')}</a>
 
         <div className="flex items-center gap-2">
-          <button className="bg-[#f5a623] hover:bg-[#e69b20] transition-colors text-[#1a2b5f] px-2 py-0.5 font-bold rounded-sm">
+          <Link to="/login" className="bg-[#f5a623] hover:bg-[#e69b20] transition-colors text-[#1a2b5f] px-2 py-0.5 font-bold rounded-sm inline-block">
             {t('topStrip.signIn')}
-          </button>
+          </Link>
 
           <button
             type="button"

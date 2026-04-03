@@ -1,14 +1,27 @@
-﻿import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import TopStrip from './TopStrip';
 import { Search, ChevronDown, Menu, Play, Pause } from 'lucide-react';
 
 const Header = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchCategory, setSearchCategory] = useState('');
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}&category=${encodeURIComponent(searchCategory)}`);
+    }
+  };
+  
+  const handleSearchKeyDown = (e) => {
+    if (e.key === 'Enter') handleSearch();
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full font-sans bg-white shadow-md flex flex-col items-center">
@@ -16,9 +29,7 @@ const Header = () => {
 
       <div className="w-full flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 px-4 sm:px-6 py-4 lg:py-0 bg-white lg:h-[90px] border-b border-gray-200">
         <div className="flex items-center justify-center lg:justify-start gap-4 text-center lg:text-left">
-          <div className="h-[64px] w-[64px] rounded-xl bg-gradient-to-br from-[#1a2b5f] to-[#2f5ea8] text-white flex items-center justify-center font-extrabold text-xl">
-            EE
-          </div>
+          <img src="/logo.png" alt="Business Support Portal Logo" className="h-[64px] w-[64px] rounded-xl object-cover" />
           <div className="flex flex-col min-w-0">
             <span className="text-[#1a2b5f] text-xl sm:text-2xl font-bold font-serif leading-tight break-words">{t('header.brandTitle')}</span>
             <span className="text-gray-700 text-xs sm:text-sm font-medium break-words">{t('header.brandSubtitle')}</span>
@@ -26,65 +37,72 @@ const Header = () => {
         </div>
 
         <div className="flex items-center border-2 border-[#1a2b5f] rounded w-full lg:max-w-md xl:max-w-xl h-[40px] overflow-hidden lg:flex flex-1 lg:mx-8 order-3 lg:order-none">
-          <input type="text" placeholder={t('header.searchPlaceholder')} className="w-full flex items-center px-3 h-full outline-none" />
+          <input 
+            type="text" 
+            placeholder={t('header.searchPlaceholder')} 
+            className="w-full flex items-center px-3 h-full outline-none"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearchKeyDown}
+          />
           <div className="w-[1px] h-full bg-gray-300"></div>
-          <select className="h-full flex items-center px-2 bg-gray-100 text-sm outline-none cursor-pointer">
-            <option>{t('header.allCategories')}</option>
+          <select 
+            className="h-full flex items-center px-2 bg-gray-100 text-sm outline-none cursor-pointer"
+            value={searchCategory}
+            onChange={(e) => setSearchCategory(e.target.value)}
+          >
+            <option value="">{t('header.allCategories')}</option>
+            <option value="schemes">Schemes</option>
+            <option value="resources">Resources</option>
+            <option value="guidelines">Guidelines</option>
           </select>
-          <button className="h-full w-12 flex items-center justify-center bg-red-600 text-white hover:bg-red-700">
+          <button 
+            type="button"
+            onClick={handleSearch}
+            className="h-full w-12 flex items-center justify-center bg-red-600 text-white hover:bg-red-700 transition"
+          >
             <Search size={18} />
           </button>
         </div>
 
         <div className="items-center gap-4 hidden xl:flex">
-          <div className="px-3 py-2 rounded-lg border border-[#1a2b5f]/20 bg-[#f7f9ff] text-right max-w-[250px]">
-            <p className="text-[#1a2b5f] text-xs font-semibold">{t('header.trustLine1')}</p>
-            <p className="text-orange-500 text-[11px] font-bold">{t('header.trustLine2')}</p>
+          <div className="flex flex-col items-center px-3 py-2">
+            <img src="/india-flag.png" alt="Indian Flag" className="h-8 w-12 object-cover rounded-sm shadow-sm" />
+            <span className="text-[#1a2b5f] text-xs font-bold mt-1 tracking-widest uppercase">Jai Hind</span>
           </div>
         </div>
       </div>
 
-      <div className="w-full flex flex-col md:flex-row items-center justify-between gap-3 px-4 sm:px-6 py-3 md:py-0 bg-[#f0f4ff] md:h-[52px] border-t-[3px] border-[#1a2b5f] text-center md:text-left">
-        <div className="flex flex-col items-center md:items-start">
-          <span className="text-orange-500 font-bold text-lg leading-tight">{t('header.mukhyamantriUdyamiYojana')}</span>
-          <span className="text-[#1a2b5f] text-xs font-semibold">{t('header.leftTagline')}</span>
-        </div>
-        <div className="flex flex-col items-center justify-center">
-          <span className="text-[#1a2b5f] font-bold text-base">{t('header.udyogVibhag')}</span>
-          <span className="text-gray-500 text-xs italic">{t('header.biharSarkar')}</span>
-        </div>
-        <div className="flex flex-col items-center md:items-end text-center md:text-right">
-          <span className="text-orange-500 font-bold text-lg leading-tight">{t('header.biharLaghuUdyamiYojana')}</span>
-          <span className="text-[#1a2b5f] text-xs font-semibold">{t('header.rightTagline')}</span>
-        </div>
-      </div>
 
-      <div className="w-full flex items-center justify-between px-4 sm:px-6 bg-[#1a3a6b] min-h-[46px] text-white text-sm font-semibold">
-        <button type="button" className="md:hidden flex items-center gap-2 py-3" onClick={() => setMobileMenuOpen((value) => !value)}><Menu size={20} /> {t('header.menu')}</button>
-        <div className="hidden md:flex items-center h-full gap-1">
+
+      <div className="w-full flex items-stretch justify-start px-4 sm:px-6 bg-[#1a3a6b] h-[46px] text-white text-sm font-semibold">
+        <div className="flex items-center md:hidden">
+          <button type="button" className="flex items-center gap-2 py-3" onClick={() => setMobileMenuOpen((value) => !value)}><Menu size={20} /> {t('header.menu')}</button>
+        </div>
+        <div className="hidden md:flex items-stretch h-full gap-1">
           <Link to="/" className="flex items-center h-full px-3 hover:bg-[#f5a623] hover:text-[#1a3a6b] transition-colors">{t('header.home')}</Link>
-          <div className="group relative flex items-center h-full">
+          <div className="group relative flex items-stretch h-full">
             <button className="flex items-center gap-1 h-full px-3 hover:bg-[#f5a623] hover:text-[#1a3a6b] transition-colors">
               {t('header.aboutUs')} <ChevronDown size={14} />
             </button>
-            <div className="hidden group-hover:block absolute top-[46px] left-0 bg-white text-[#1a2b5f] shadow-md border-t-2 border-orange-500 min-w-[200px] z-50">
+            <div className="hidden group-hover:block absolute top-full left-0 bg-white text-[#1a2b5f] shadow-md border-t-2 border-orange-500 min-w-[200px] z-50">
               <Link to="/about-us" className="flex items-center w-full px-4 py-3 hover:bg-gray-100 border-b border-gray-100">{t('header.overview')}</Link>
               <Link to="/about-us" className="flex items-center w-full px-4 py-3 hover:bg-gray-100">{t('header.leadership')}</Link>
             </div>
           </div>
-          <div className="group relative flex items-center h-full">
+          <div className="group relative flex items-stretch h-full">
             <button className="flex items-center gap-1 h-full px-3 hover:bg-[#f5a623] hover:text-[#1a3a6b] transition-colors">
               MMUY <ChevronDown size={14} />
             </button>
-            <div className="hidden group-hover:block absolute top-[46px] left-0 bg-white text-[#1a2b5f] shadow-md border-t-2 border-orange-500 min-w-[200px] z-50">
+            <div className="hidden group-hover:block absolute top-full left-0 bg-white text-[#1a2b5f] shadow-md border-t-2 border-orange-500 min-w-[200px] z-50">
               <Link to="/mmuy" className="flex items-center w-full px-4 py-3 hover:bg-gray-100">{t('header.details')}</Link>
             </div>
           </div>
-          <div className="group relative flex items-center h-full">
+          <div className="group relative flex items-stretch h-full">
             <button className="flex items-center gap-1 h-full px-3 hover:bg-[#f5a623] hover:text-[#1a3a6b] transition-colors">
               BLUY <ChevronDown size={14} />
             </button>
-            <div className="hidden group-hover:block absolute top-[46px] left-0 bg-white text-[#1a2b5f] shadow-md border-t-2 border-orange-500 min-w-[200px] z-50">
+            <div className="hidden group-hover:block absolute top-full left-0 bg-white text-[#1a2b5f] shadow-md border-t-2 border-orange-500 min-w-[200px] z-50">
               <Link to="/bluy" className="flex items-center w-full px-4 py-3 hover:bg-gray-100">{t('header.details')}</Link>
             </div>
           </div>
@@ -92,9 +110,6 @@ const Header = () => {
           <Link to="/resources" className="flex items-center h-full px-3 hover:bg-[#f5a623] hover:text-[#1a3a6b] transition-colors">{t('header.resources')}</Link>
           <Link to="/contact-us" className="flex items-center h-full px-3 hover:bg-[#f5a623] hover:text-[#1a3a6b] transition-colors">{t('header.contactUs')}</Link>
           <Link to="/chat" className="flex items-center h-full px-3 text-yellow-400 hover:bg-[#f5a623] hover:text-[#1a3a6b] transition-colors">{t('header.aiChatBot')}</Link>
-        </div>
-        <div className="flex items-center border border-white rounded-full px-3 py-1 bg-transparent hidden sm:flex">
-          <input type="text" placeholder={t('header.searchShort')} className="bg-transparent outline-none text-white placeholder-white opacity-80 text-xs w-32" />
         </div>
       </div>
 
@@ -117,12 +132,12 @@ const Header = () => {
         </div>
       )}
 
-      <div className="hidden md:flex w-full items-center justify-center bg-[#eef2ff] h-[36px] border-b border-gray-200">
-        <div className="group relative flex items-center h-full">
+      <div className="hidden md:flex w-full items-stretch justify-center bg-[#eef2ff] h-[36px] border-b border-gray-200">
+        <div className="group relative flex items-stretch h-full">
           <button type="button" className="flex items-center justify-center gap-2 text-[#1a3a6b] font-bold text-sm h-full px-4 hover:bg-white transition-colors border-x border-transparent hover:border-gray-200">
             <span className="text-orange-500 text-lg leading-none">{'->'}</span> {t('header.loginRegistration')} <ChevronDown size={14} />
           </button>
-          <div className="hidden group-hover:block absolute top-[36px] left-1/2 -translate-x-1/2 bg-white shadow-lg border-t-2 border-[#3600a0] min-w-[220px] z-50">
+          <div className="hidden group-hover:block absolute top-full left-1/2 -translate-x-1/2 bg-white shadow-lg border-t-2 border-[#3600a0] min-w-[220px] z-50">
             <Link to="/login/mmuy" className="flex items-center w-full px-4 py-3 hover:bg-gray-100 text-sm font-semibold text-[#3600a0] border-b border-gray-100">{t('header.mmuyLogin')}</Link>
             <Link to="/login/bluy" className="flex items-center w-full px-4 py-3 hover:bg-gray-100 text-sm font-semibold text-[#3600a0]">{t('header.bluyLogin')}</Link>
           </div>
