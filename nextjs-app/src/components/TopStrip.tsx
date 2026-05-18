@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import Link from 'next/link';
 import { Show, SignInButton, UserButton } from '@clerk/nextjs';
 const TopStrip = () => {
   const { t, i18n } = useTranslation();
