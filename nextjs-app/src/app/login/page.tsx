@@ -1,5 +1,6 @@
-﻿'use client';
+'use client';
 
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -14,7 +15,7 @@ const Login = () => {
     document.title = `${t('topStrip.signIn')} | ${t('app.documentTitle')}`;
   }, [t]);
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!mobile.trim() || mobile.length !== 10) {
       setError(t('mmuyLogin.mobileError'));
@@ -30,11 +31,11 @@ const Login = () => {
   };
 
   const panelLinks = [
-    t('header.home'),
-    t('header.aboutUs'),
-    t('header.successStories'),
-    t('header.resources'),
-    t('header.contactUs')
+    { label: t('header.home'), href: '/' },
+    { label: t('header.aboutUs'), href: '/about-us' },
+    { label: t('header.successStories'), href: '/success-stories' },
+    { label: t('header.resources'), href: '/resources' },
+    { label: t('header.contactUs'), href: '/contact-us' },
   ];
 
   return (
@@ -44,14 +45,14 @@ const Login = () => {
           {/* Decorative background element overlay */}
           <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 100% 100%, #ffffff 0%, transparent 50%)' }}></div>
           <div className="relative z-10">
-            <a href="/" style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 700, lineHeight: 1.55, textDecoration: 'none', display: 'block', marginBottom: 36 }}>
+            <Link href="/" style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 700, lineHeight: 1.55, textDecoration: 'none', display: 'block', marginBottom: 36 }}>
               {t('header.biharSarkar')}
-            </a>
+            </Link>
             <nav style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
               {panelLinks.map((item) => (
-                <a key={item} href="/" style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.88)', textDecoration: 'none', transition: 'color 0.2s ease-in-out' }} onMouseOver={(e) => (e.target as any).style.color = '#fff'} onMouseOut={(e) => (e.target as any).style.color = 'rgba(255,255,255,0.88)'}>
-                  {item}
-                </a>
+                <Link key={item.href} href={item.href} style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.88)', textDecoration: 'none', transition: 'color 0.2s ease-in-out' }} onMouseOver={(e) => (e.currentTarget.style.color = '#fff')} onMouseOut={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.88)')}>
+                  {item.label}
+                </Link>
               ))}
             </nav>
             <div style={{ marginTop: 40, fontSize: '0.82rem', color: 'rgba(255,255,255,0.8)', lineHeight: 1.9 }}>
@@ -90,13 +91,13 @@ const Login = () => {
             <button type="submit" className="transition-transform active:scale-[0.98]" style={{ width: '100%', background: '#1a2b5f', color: '#fff', fontWeight: 700, fontSize: '1rem', padding: '14px', borderRadius: 10, border: 'none', cursor: 'pointer', marginBottom: 20 }}>{t('topStrip.signIn')}</button>
 
             <div style={{ textAlign: 'center', marginBottom: 24 }}>
-              <a href="#" style={{ color: '#1a2b5f', fontSize: '0.88rem', fontWeight: 600, textDecoration: 'none' }} onMouseOver={(e) => (e.target as any).style.textDecoration = 'underline'} onMouseOut={(e) => (e.target as any).style.textDecoration = 'none'}>Forgot your password?</a>
+              <a href="#" style={{ color: '#1a2b5f', fontSize: '0.88rem', fontWeight: 600, textDecoration: 'none' }} onMouseOver={(e) => (e.currentTarget.style.textDecoration = 'underline')} onMouseOut={(e) => (e.currentTarget.style.textDecoration = 'none')}>Forgot your password?</a>
             </div>
             
             <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '24px 0' }} />
             
             <div style={{ textAlign: 'center', fontSize: '0.88rem', color: '#64748b' }}>
-              Don't have an account? <a href="#" style={{ color: '#1a2b5f', fontWeight: 600, textDecoration: 'none' }}>Register here</a>
+              Don&apos;t have an account? <a href="#" style={{ color: '#1a2b5f', fontWeight: 600, textDecoration: 'none' }}>Register here</a>
             </div>
           </form>
         </div>

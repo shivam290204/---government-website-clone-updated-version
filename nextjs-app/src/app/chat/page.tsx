@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
 import {
@@ -8,7 +8,22 @@ import {
 } from 'lucide-react';
 
 // â”€â”€ Suggested questions with pre-written answers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-const SUGGESTIONS = [
+type ChatMessage = {
+  id: number;
+  role: 'user' | 'bot';
+  text: string;
+};
+
+type Suggestion = {
+  id: number;
+  Icon: React.ComponentType<{ size?: number; color?: string }>;
+  color: string;
+  bg: string;
+  question: string;
+  answer: string;
+};
+
+const SUGGESTIONS: Suggestion[] = [
   {
     id: 1,
     Icon: Lightbulb,
@@ -103,15 +118,23 @@ const SUGGESTIONS = [
 
 // â”€â”€ Main Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const Chat = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const messagesEndRef = useRef<any>(null);
-  const inputRef = useRef(null);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     document.title = 'Business Support Portal | AI Assistant';
   }, []);
+
+  const nextMessageId = useRef(1);
+
+  const getNextMessageId = () => {
+    const id = nextMessageId.current;
+    nextMessageId.current += 1;
+    return id;
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -121,11 +144,11 @@ const Chat = () => {
     scrollToBottom();
   }, [messages, isTyping]);
 
-  const sendMessage = (text) => {
+  const sendMessage = (text?: string) => {
     const trimmed = (text || input).trim();
     if (!trimmed) return;
 
-    const userMsg = { id: Date.now(), role: 'user', text: trimmed };
+    const userMsg: ChatMessage = { id: getNextMessageId(), role: 'user', text: trimmed };
     setMessages((prev) => [...prev, userMsg]);
     setInput('');
     setIsTyping(true);
@@ -136,8 +159,8 @@ const Chat = () => {
     );
 
     setTimeout(() => {
-      const botMsg = {
-        id: Date.now() + 1,
+      const botMsg: ChatMessage = {
+        id: getNextMessageId(),
         role: 'bot',
         text: match
           ? match.answer
@@ -154,7 +177,7 @@ const Chat = () => {
     inputRef.current?.focus();
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage(input);

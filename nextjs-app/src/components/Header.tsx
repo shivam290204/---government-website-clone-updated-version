@@ -1,5 +1,6 @@
-﻿'use client';
+'use client';
 
+import Image from 'next/image';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -32,7 +33,7 @@ const Header = () => {
     }
   };
   
-  const handleSearchKeyDown = (e) => {
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') handleSearch();
   };
 
@@ -42,7 +43,7 @@ const Header = () => {
 
       <div className="w-full flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 px-4 sm:px-6 py-4 lg:py-0 bg-white lg:h-[90px] border-b border-gray-200">
         <div className="flex items-center justify-center lg:justify-start gap-4 text-center lg:text-left">
-          <img src="/logo.png" alt="Business Support Portal Logo" className="h-[64px] w-[64px] rounded-xl object-cover" />
+          <Image src="/logo.png" alt="Business Support Portal Logo" width={64} height={64} className="h-[64px] w-[64px] rounded-xl object-cover" priority />
           <div className="flex flex-col min-w-0">
             <span className="text-[#1a2b5f] text-xl sm:text-2xl font-bold font-serif leading-tight break-words">{t('header.brandTitle')}</span>
             <span className="text-gray-700 text-xs sm:text-sm font-medium break-words">{t('header.brandSubtitle')}</span>
@@ -80,7 +81,7 @@ const Header = () => {
 
         <div className="items-center gap-4 hidden xl:flex">
           <div className="flex flex-col items-center px-3 py-2">
-            <img src="/india-flag.png" alt="Indian Flag" className="h-8 w-12 object-cover rounded-sm shadow-sm" />
+            <Image src="/india-flag.png" alt="Indian Flag" width={48} height={32} className="h-8 w-12 object-cover rounded-sm shadow-sm" />
             <span className="text-[#1a2b5f] text-xs font-bold mt-1 tracking-widest uppercase">Jai Hind</span>
           </div>
         </div>

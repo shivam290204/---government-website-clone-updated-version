@@ -1,32 +1,46 @@
-﻿'use client';
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
+
+type LoadingState = {
+  key: string;
+  isLoading: boolean;
+};
+
+const getSearchKey = (query: string, category: string) => `${query}::${category}`;
 
 const SearchResults = () => {
   const { t } = useTranslation();
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
   const category = searchParams.get('category') || '';
-  const [isLoading, setIsLoading] = useState(true);
+  const searchKey = getSearchKey(query, category);
+  const [loadingState, setLoadingState] = useState<LoadingState>(() => ({
+    key: searchKey,
+    isLoading: true,
+  }));
+  const isLoading = loadingState.key !== searchKey || loadingState.isLoading;
 
   useEffect(() => {
     document.title = `Search: ${query} | ${t('app.documentTitle')}`;
-    setIsLoading(true);
-    // Mocking an API delay
-    const timer = setTimeout(() => {
-      setIsLoading(false);
+  }, [query, t]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setLoadingState({ key: searchKey, isLoading: false });
     }, 800);
-    return () => clearTimeout(timer);
-  }, [query, category, t]);
+
+    return () => window.clearTimeout(timer);
+  }, [searchKey]);
 
   return (
     <div className="container mx-auto px-4 py-10 min-h-[65vh]">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold text-[#1a2b5f] mb-2">Search Results</h1>
         <p className="text-gray-600 mb-8 border-b pb-4">
-          Showing results for <span className="font-semibold text-gray-900">"{query}"</span>
+          Showing results for <span className="font-semibold text-gray-900">&quot;{query}&quot;</span>
           {category && (<span> in category <span className="font-semibold text-gray-900">{category}</span></span>)}
         </p>
 
@@ -43,7 +57,7 @@ const SearchResults = () => {
             </div>
             <h3 className="text-xl font-semibold text-[#1a2b5f] mb-2">No exact matches found</h3>
             <p className="text-gray-500 max-w-md mx-auto">
-              We couldn't find any documents or pages matching your exact search criteria. Please try adjusting your keywords or category.
+              We couldn&apos;t find any documents or pages matching your exact search criteria. Please try adjusting your keywords or category.
             </p>
           </div>
         )}
@@ -52,4 +66,10 @@ const SearchResults = () => {
   );
 };
 
-export default function Page() { return (<React.Suspense fallback={<div>Loading...</div>}><SearchResults /></React.Suspense>); }
+export default function Page() {
+  return (
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <SearchResults />
+    </React.Suspense>
+  );
+}

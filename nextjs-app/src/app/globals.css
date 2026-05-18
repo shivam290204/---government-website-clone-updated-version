@@ -1,5 +1,3 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
-
 @import "tailwindcss";
 
 
@@ -24,8 +22,8 @@
   --success: #10b981;
 
   /* Typography */
-  --font-heading: 'Outfit', 'Noto Sans Devanagari', sans-serif;
-  --font-body: 'Inter', 'Noto Sans Devanagari', sans-serif;
+  --font-heading: 'Segoe UI', 'Noto Sans Devanagari', system-ui, sans-serif;
+  --font-body: 'Segoe UI', 'Noto Sans Devanagari', system-ui, sans-serif;
 
   /* Shadows & Effects */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -1804,6 +1802,7 @@ body.high-contrast .gradient-text {
 
 /* Gallery Swiper */
 .gallery-slide-card {
+  position: relative;
   border-radius: 8px;
   overflow: hidden;
   aspect-ratio: 4/3;

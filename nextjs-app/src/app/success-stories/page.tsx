@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import Image from 'next/image';
+import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 
@@ -8,6 +9,35 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 import { projects, gallery } from '@/data/successStoriesData';
+
+const FALLBACK_IMAGE = '/images/300px-Melissa_Askew_2015-08-08_(Unsplash).jpg';
+
+type OptimizedStoryImageProps = {
+  src: string;
+  alt: string;
+  className: string;
+  sizes: string;
+  priority?: boolean;
+};
+
+const getSafeImageSource = (src: string) => src.toLowerCase().endsWith('.pdf') ? FALLBACK_IMAGE : src;
+
+const OptimizedStoryImage = ({ src, alt, className, sizes, priority = false }: OptimizedStoryImageProps) => {
+  const [imageSrc, setImageSrc] = useState(() => getSafeImageSource(src));
+
+  return (
+    <Image
+      src={imageSrc}
+      alt={alt}
+      fill
+      sizes={sizes}
+      className={className}
+      priority={priority}
+      unoptimized={imageSrc.startsWith('http')}
+      onError={() => setImageSrc(FALLBACK_IMAGE)}
+    />
+  );
+};
 
 const SuccessStories = () => {
   return (
@@ -31,12 +61,14 @@ const SuccessStories = () => {
               className="projects-swiper pb-12"
             >
               {projects.map((project, index) => (
-                <SwiperSlide key={index}>
+                <SwiperSlide key={project.id}>
                   <div className="project-slide-card">
-                    <img
+                    <OptimizedStoryImage
                       src={project.image}
                       alt={project.title}
                       className="project-slide-img"
+                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      priority={index < 4}
                     />
                     <div className="project-slide-overlay">
                       <div className="project-slide-content">
@@ -70,13 +102,13 @@ const SuccessStories = () => {
               className="gallery-swiper py-6"
             >
               {gallery.map((img, index) => (
-                <SwiperSlide key={index}>
+                <SwiperSlide key={`${img}-${index}`}>
                   <div className="gallery-slide-card hover-lift">
-                    <img
+                    <OptimizedStoryImage
                       src={img}
                       alt={`Gallery Item ${index + 1}`}
                       className="gallery-slide-img"
-                      onError={(e) => { (e.target as any).src = '/images/300px-Melissa_Askew_2015-08-08_(Unsplash).jpg' }} // Fallback if API image fails
+                      sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, 50vw"
                     />
                   </div>
                 </SwiperSlide>

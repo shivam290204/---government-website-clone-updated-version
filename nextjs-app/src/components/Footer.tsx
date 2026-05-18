@@ -1,7 +1,9 @@
 'use client';
 
+import Image from 'next/image';
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import { Facebook, Instagram, Twitter, Phone, Mail, MapPin, UserCheck, ShieldCheck, Eye, Activity } from 'lucide-react';
+import { Facebook, Instagram, Twitter, MapPin, UserCheck, ShieldCheck, Eye, Activity } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
@@ -22,7 +24,7 @@ const Footer = () => {
           <div className="footer-col brand-col">
             <div className="footer-logo-row">
               <div className="footer-logo-box">
-                <img src="/logo.png" alt="Business Support Portal Logo" className="h-14 w-14 rounded-full object-cover" />
+                <Image src="/logo.png" alt="Business Support Portal Logo" width={56} height={56} className="h-14 w-14 rounded-full object-cover" />
               </div>
               <div className="footer-brand-text">
                 <h3>{t('footer.udyogVibhag')}</h3>
@@ -48,10 +50,10 @@ const Footer = () => {
           <div className="footer-col">
             <h4 className="footer-heading">{t('footer.importantLinks')}</h4>
             <ul className="footer-links">
-              <li><a href="/">{t('footer.home')}</a></li>
-              <li><a href="/about-us">{t('footer.aboutUs')}</a></li>
-              <li><a href="/success-stories">{t('footer.successStories')}</a></li>
-              <li><a href="/contact-us">{t('footer.contactUs')}</a></li>
+              <li><Link href="/">{t('footer.home')}</Link></li>
+              <li><Link href="/about-us">{t('footer.aboutUs')}</Link></li>
+              <li><Link href="/success-stories">{t('footer.successStories')}</Link></li>
+              <li><Link href="/contact-us">{t('footer.contactUs')}</Link></li>
               <li><a href="/pdf/FAQ.pdf" target="_blank" rel="noreferrer">{t('footer.faq')}</a></li>
             </ul>
           </div>
@@ -59,11 +61,11 @@ const Footer = () => {
           <div className="footer-col">
             <h4 className="footer-heading">{t('footer.helpAndPolicies')}</h4>
             <ul className="footer-links">
-              <li><a href="/terms-and-conditions">{t('footer.terms')}</a></li>
-              <li><a href="/sitemap">{t('footer.sitemap')}</a></li>
-              <li><a href="/accessibility">{t('footer.accessibility')}</a></li>
-              <li><a href="/website-policies">{t('footer.websitePolicies')}</a></li>
-              <li><a href="/contact-us">{t('footer.support')}</a></li>
+              <li><Link href="/terms-and-conditions">{t('footer.terms')}</Link></li>
+              <li><Link href="/sitemap">{t('footer.sitemap')}</Link></li>
+              <li><Link href="/accessibility">{t('footer.accessibility')}</Link></li>
+              <li><Link href="/website-policies">{t('footer.websitePolicies')}</Link></li>
+              <li><Link href="/contact-us">{t('footer.support')}</Link></li>
             </ul>
           </div>
         </div>
@@ -100,13 +102,13 @@ const Footer = () => {
 
         <div className="footer-bottom flex-between">
           <div className="dept-logins">
-            <a href="/login/mmuy" className="dept-link">
+            <Link href="/login/mmuy" className="dept-link">
               <UserCheck size={16} /> {t('footer.partnerLogin')} (MMUY)
-            </a>
+            </Link>
             <span className="divider">|</span>
-            <a href="/login/bluy" className="dept-link">
+            <Link href="/login/bluy" className="dept-link">
               <UserCheck size={16} /> {t('footer.partnerLogin')} (BLUY)
-            </a>
+            </Link>
           </div>
           <p className="copyright">{t('footer.copyright', { year: new Date().getFullYear() })}</p>
         </div>
